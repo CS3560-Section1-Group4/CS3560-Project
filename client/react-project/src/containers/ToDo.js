@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import FormLabel from "react-bootstrap/FormLabel";
+import Axios from 'axios';
 
 export default function ToDo(){
     
@@ -31,6 +32,13 @@ export default function ToDo(){
         }
 
     }
+
+    const getTasks = () => {
+        Axios.get("http:://localhost:3001/roommates").then((response) => {
+          checkHousemates(response.data);
+        });
+    }
+
     var text = "Hello"
     var task = "Clean the dishes"
 
@@ -52,6 +60,18 @@ export default function ToDo(){
             ))}
             <FormLabel>{array[0]}</FormLabel>
         </div>
+
+
+        /*{getTasks.map((val,key) => {
+            return( 
+            <div className="roommate">
+            <h3>Name: {val.name}</h3>
+            <h3>Age: {val.age}</h3>
+        </div>
+        );
+        })}*/
+
+
     );
 
 }
