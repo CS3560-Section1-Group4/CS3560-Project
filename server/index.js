@@ -17,11 +17,10 @@ const db = mysql.createConnection({
 app.post('/createAccount' , (req, res) => {
     const name = req.body.name;
     const emailAddress = req.body.emailAddress;
-    const telephone = req.body.telephone;
     const password = req.body.password;
 
 
-    db.query('INSERT INTO account (name,emailAddress,telephone,password) VALUES (?,?,?,?)', [name,emailAddress,telephone,password], 
+    db.query('INSERT INTO account (name,emailAddress,password) VALUES (?,?,?)', [name,emailAddress,password], 
         (err,result) => {
             if (err){
                 console.log(err);
@@ -47,62 +46,50 @@ app.post('/createHouse' , (req, res) => {
         })
 })
 
-//Adds house to database
+//Adds a new chore to database
 app.post('/createChore' , (req, res) => {
     const title = req.body.title;
     const assignedTo = req.body.assignedTo;
-    const dateAssigned = req.body.dateAssigned;
     const completionStatus = req.body.completionStatus;
-    const priority = req.body.priority;
-    const choreStatus = req.body.choreStatus;
 
 
-    db.query('INSERT INTO choresmanagement (title,assignedTo,dateAssigned,completionStatus) VALUES (?,?,?,?)', [title,assignedTo,dateAssigned,completionStatus], 
+    db.query('INSERT INTO chores (title,assignedTo,completionStatus) VALUES (?,?,?)', [title,assignedTo,completionStatus], 
         (err,result) => {
             if (err){
                 console.log(err);
             } else{
-                db.query('INSERT INTO chore (priority,choreStatus) VALUES (?,?)',[priority,choreStatus],
-                (err,result) => {
-                    if (err){
-                        console.log(err);
-                    } else{
-                        res.send("Values Inserted");
-                    }
-                })
                 res.send("Values Inserted");
             }
         })
 })
 
-/*
-app.get('/roommates', (req,res) => {
-    db.query("SELECT * FROM roommates", (err,result) => {
+
+
+//returns all chores from the chores table in the database
+app.get('/getChores', (req,res) => {
+    db.query("SELECT * FROM chores", (err,result) => {
         if (err) {
             console.log(err);
         } else{
             res.send(result);
         }
     });
-});`
-*/
+});
 
-app.post('/checkLogin', (req,res) => {
-    const emailAddress = req.body.emailAddress;
-    const password = req.body.password;
-    db.query("SELECT (?,?) FROM account",[emailAddress,password], 
-    (err,result) => {
+//returns all housemates from the housemates table in the database
+app.get('/getHousemates', (req,res) => {
+    db.query("SELECT * FROM housemates", (err,result) => {
         if (err) {
             console.log(err);
         } else{
-            res.send("Login is valid");
+            res.send(result);
         }
     });
 });
 
-
-app.get('/getTasks', (req,res) => {
-    db.query("PUT SQL STATEMENT HERE TO RETURN THE TASKS", (err,result) => {
+//returns all houses from the houses table in the database
+app.get('/getHouses', (req,res) => {
+    db.query("SELECT * FROM houses", (err,result) => {
         if (err) {
             console.log(err);
         } else{
