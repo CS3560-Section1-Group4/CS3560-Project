@@ -63,7 +63,19 @@ app.post('/createChore' , (req, res) => {
         })
 })
 
-
+//checks if emailAddress and password of current user exists in the database
+app.post('/checkLogin', (req,res) => {
+    const emailAddress = req.body.emailAddress;
+    const password = req.body.password;
+    db.query("SELECT (?,?) FROM account",[emailAddress,password], 
+    (err,result) => {
+        if (err) {
+            console.log(err);
+        } else{
+            res.send("Login is valid");
+        }
+    });
+});
 
 //returns all chores from the chores table in the database
 app.get('/getChores', (req,res) => {
