@@ -19,7 +19,7 @@ export default function SignIn() {
   }
 
   const createAccount = () => {
-    Axios.post('http://localhost:3001/create', {
+    Axios.post('http://localhost:3001/createaccount', {
       email:email, 
       password:password,
     }).then(()=>{
