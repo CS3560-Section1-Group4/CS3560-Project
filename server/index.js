@@ -100,6 +100,17 @@ app.post('/checkLogin', (req,res) => {
     });
 });
 
+
+app.get('/getTasks', (req,res) => {
+    db.query("PUT SQL STATEMENT HERE TO RETURN THE TASKS", (err,result) => {
+        if (err) {
+            console.log(err);
+        } else{
+            res.send(result);
+        }
+    });
+});
+
 app.listen(3001, ()=> {
     console.log ("Server running")
 })
