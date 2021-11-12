@@ -8,12 +8,21 @@ function App() {
   const[name, setName] = useState("");
   const[age, setAge] = useState(0);
 
+
+  const [roommateList, setRoommateList] = useState([]);
+
   const addRoommate = () => {
     Axios.post('http://localhost:3001/create', {
       name: name, 
       age: age,
     }).then(()=>{
       console.log("success")
+    });
+  }
+
+  const getRoommates = () => {
+    Axios.get("http:://localhost:3001/roommates").then((response) => {
+      setRoommateList(response.data);
     });
   }
 
@@ -34,6 +43,23 @@ function App() {
         }} />
         <button onClick={addRoommate}> Add Roommate</button>
       </div>
+
+      HOW TO GET FROM DATABASE
+
+      <div className="roommates">
+        <button onClick={getRoommates}> Show Roommates</button>
+
+        {rooommateList.map((val,key) => {
+          return( 
+            <div className="roommate">
+              <h3>Name: {val.name}</h3>
+              <h3>Age: {val.age}</h3>
+            </div>
+          );
+        })}
+      </div>
+
+
     </div>
   );
 }
