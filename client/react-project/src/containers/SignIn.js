@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Text from "react"
 import Axios from 'axios';
-import "./Login.css";
-import {BrowserRouter as Router,Route, Switch, Link} from "react-router-dom";
 
-export default function Login() {
+
+import "./Login.css";
+
+export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,7 +18,7 @@ export default function Login() {
     event.preventDefault();
   }
 
-  const checkAccount = () => {
+  const createAccount = () => {
     Axios.post('http://localhost:3001/create', {
       email:email, 
       password:password,
@@ -28,7 +28,7 @@ export default function Login() {
   }
 
   return (
-    <div className="Login">
+    <div className="SignIn">
       <Form onSubmit={handleSubmit}>
         <Form.Group size="lg" controlId="email">
           <Form.Label>Email</Form.Label>
@@ -47,11 +47,9 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Button onClick={checkAccount} block size="lg" type="submit" disabled={!validateForm()}>
-          Login
+        <Button block size="lg" type="submit" disabled={!validateForm()}>
+          SignIn
         </Button>
-        <div> </div>
-        <Link to = "/signin">Don't have an account? Click here</Link>
       </Form>
     </div>
   );
