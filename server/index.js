@@ -18,9 +18,10 @@ app.post('/createAccount' , (req, res) => {
     const name = req.body.name;
     const emailAddress = req.body.emailAddress;
     const telephone = req.body.telephone;
+    const password = req.body.password;
 
 
-    db.query('INSERT INTO account (name,emailAddress,telephone) VALUES (?,?,?)', [name,emailAddress,telephone], 
+    db.query('INSERT INTO account (name,emailAddress,telephone,password) VALUES (?,?,?,?)', [name,emailAddress,telephone,password], 
         (err,result) => {
             if (err){
                 console.log(err);
@@ -76,15 +77,28 @@ app.post('/createChore' , (req, res) => {
 
 /*
 app.get('/roommates', (req,res) => {
-    db.quert("SELECT * FROM roommates", (err,result) => {
+    db.query("SELECT * FROM roommates", (err,result) => {
         if (err) {
             console.log(err);
         } else{
             res.send(result);
         }
     });
-});
+});`
 */
+
+app.post('/checkLogin', (req,res) => {
+    const emailAddress = req.body.emailAddress;
+    const password = req.body.password;
+    db.query("SELECT (?,?) FROM account",[emailAddress,password], 
+    (err,result) => {
+        if (err) {
+            console.log(err);
+        } else{
+            res.send("Login is valid");
+        }
+    });
+});
 
 app.listen(3001, ()=> {
     console.log ("Server running")
