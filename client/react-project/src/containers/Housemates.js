@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Cotainer, Row, Col, Button, Modal} from 'react-bootstrap'
 import './Housemates.css';
 import ReactRoundedImage from "react-rounded-image";
+import Axios from 'axios';
 
 const photoPlaceholder = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
@@ -29,6 +30,8 @@ const Card = (props) => {
         </div>
     );
 }
+
+
 
 export default function Housemates() {
     const [show, setShow] = useState(false);

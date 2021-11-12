@@ -8,42 +8,43 @@ import "./ToDo.css";
 
 export default function ToDo(){
     
+    // create the variable and the set function
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [newTask, setNewTask] = useState("");
-    
-    function checkAccount(){
-        // get account 
-        // find houses associated to account 
+    const [choreList, setChores] = useState([]);
+  
+    // get request to MySQL database 
+    function getChores(){
+        Axios.get("http:://localhost:3001/getChores").then((response) => {
+        setChores(response.data);
+    });
 
     }
-
     
+    // substitute variable for format
     var numberOfTenants = 5
-
     const housemateTasks = ["Chore", "Chore"]
-    var task = "Chore"
-    housemateTasks.push(task)
-    
-    /*const data = {
-        "1549969678424": "26.092242876805436"
-    }
-    const name = Object.keys(data)
-    const tasks = Object.values(data)*/
+    var ex = "Chore"
+    housemateTasks.push(ex)
     
     return (
         <div className = "ToDo"> 
+            {/* the navigation bar */}
             <Navbar bg="dark" variant="dark" sticky="top">
                 <Navbar.Brand>
                     Room.me
                 </Navbar.Brand>
             </Navbar>
+            {/* to-do label */}
             <label > 
                 <span style={{'fontSize': '80px'}}>To-Do List</span> 
             </label>
             <div> </div>
+            {/* the house name  */}
             <label> <span style={{'fontSize': '40px'}}>House Name</span>  </label>
+            {/* structure of fake data of the housemate with their chores */}
             {Array.from({ length: numberOfTenants }).map((_, idx) => (
                 <Form>        
                     <div></div>
@@ -53,21 +54,25 @@ export default function ToDo(){
                             <Form.Check size="lg" style={{'fontSize': '30px'}} type="checkbox" label={tasks} />))}
                 </Form> ))}
             
+            {/* Add Chore Button */}
             <div className="addButton">
                 <Button onClick={handleShow} style={{width: '50px', height: '50px', borderRadius: '50px', backgroundColor: '#97D8C4', borderColor: '#97D8C4'}}>
                     +
                 </Button>
             </div>
+            {/* Modal Screen */}
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Add a Chore</Modal.Title>
                 </Modal.Header>
+                {/* Add Chore Input */}
                 <Modal.Body>
                 <Form.Control                
                     value={newTask}
                     onChange={(e) => setNewTask(e.target.value)}
                 />
                 </Modal.Body>
+                {/* Assign to People */}
                 <Modal.Body>
                     Assign to
                     {Array.from({ length: numberOfTenants }).map((_, idx) => (
@@ -83,12 +88,19 @@ export default function ToDo(){
                 </Button>
                 </Modal.Footer>
             </Modal>
-          
+
+            {/* How to set the get post json array to variables */}
+            <button onClick={getChores}> Show Roommates</button>
+                {choreList.map((val,key) => {
+                return( 
+                    <div className="roommate">
+                    <h3>HouseMate: {val.housemate}</h3>
+                    <h3><Form.Check type="checkbox" label = {val.task} /> </h3>
+                    <h3>Task: {val.task}</h3>
+                </div>
+                );
+            })}          
         </div>
-        
-
-
-
 
     );
 

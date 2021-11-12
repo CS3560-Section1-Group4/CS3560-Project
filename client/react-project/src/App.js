@@ -1,6 +1,41 @@
 import './App.css';
-import { useState } from "react";
-import Axios from 'axios';
+import React from "react";
+import {BrowserRouter as Router,Route, Switch} from "react-router-dom";
+import Login from './containers/Login';
+import SignUp from './containers/SignUp';
+import ToDo from './containers/ToDo'
+import Houses from './containers/Houses';
+import Housemates from './containers/Housemates'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const App = () => {
+    return (
+    <Router>
+      <div className = "App">
+          <Switch>
+            <Route path = "/login">
+              <Login />
+            </Route>   
+            <Route path = "/signup">
+              <SignUp />
+            </Route>
+            <Route path = "/todo">
+              <ToDo />
+            </Route>
+            <Route path = "/houses">
+              <Houses />
+            </Route>
+            <Route path = "/housemates">
+              <Housemates />
+            </Route>
+          </Switch>
+      </div>
+    </Router>
+    );
+};
+
+export default App;
+
 
 /*function App() {
 function App() {
@@ -65,42 +100,3 @@ function App() {
 }
 
 export default App;*/
-
-
-import React from "react";
-import {BrowserRouter as Router,Route, Switch} from "react-router-dom";
-import Login from './containers/Login';
-import SignIn from './containers/SignIn';
-import ToDo from './containers/ToDo'
-
-import Houses from './containers/Houses';
-import Housemates from './containers/Housemates'
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-const App = () => {
-    return (
-    <Router>
-      <div className = "App">
-          <Switch>
-            <Route path = "/login">
-              <Login />
-            </Route>  
-            <Route path = "/signin">
-              <SignIn />
-            </Route>
-            <Route path = "/todo">
-              <ToDo />
-            </Route>
-            <Route path = "/houses">
-              <Houses />
-            </Route>
-            <Route path = "/housemates">
-              <Housemates />
-            </Route>
-          </Switch>
-      </div>
-    </Router>
-    );
-};
-
-export default App;

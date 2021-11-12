@@ -29,7 +29,7 @@ export default function House() {
     {Array.from({ length: 15 }).map((_, idx) => (
         <Card style={{width: '150rem', height: '10rem'}}>
             <Card.Body style={{marginTop: '10px'}}>
-            <Card.Title>Card title</Card.Title>
+            <Card.Title>House Name</Card.Title>
             <Card.Text>
                 This is a longer card with supporting text below as a natural
                 lead-in to additional content. This content is a little bit longer.
