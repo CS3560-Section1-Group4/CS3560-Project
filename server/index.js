@@ -74,6 +74,18 @@ app.post('/createChore' , (req, res) => {
         })
 })
 
+/*
+app.get('/roommates', (req,res) => {
+    db.quert("SELECT * FROM roommates", (err,result) => {
+        if (err) {
+            console.log(err);
+        } else{
+            res.send(result);
+        }
+    });
+});
+*/
+
 app.listen(3001, ()=> {
     console.log ("Server running")
 })
