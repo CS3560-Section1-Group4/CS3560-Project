@@ -29,3 +29,9 @@
 .information button:hover{
   cursor: pointer;
 }
+
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}

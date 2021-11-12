@@ -74,6 +74,7 @@ import SignIn from './containers/SignIn';
 import ToDo from './containers/ToDo'
 
 import Houses from './containers/Houses';
+import Housemates from './containers/Housemates'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
@@ -92,6 +93,9 @@ const App = () => {
             </Route>
             <Route path = "/houses">
               <Houses />
+            </Route>
+            <Route path = "/housemates">
+              <Housemates />
             </Route>
           </Switch>
       </div>

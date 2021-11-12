@@ -1,0 +1,18 @@
+.bg-myFrost {
+    background-color: '#6B9AC4';
+}
+
+.addButton {
+    align-content: flex-end;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+.card .header {
+    display: flex;
+}
+
+.card .header .title {
+    margin: auto 0;
+}

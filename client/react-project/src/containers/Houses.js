@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Login from ""
-
- 
 import Navbar from 'react-bootstrap/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Cotainer, Card, Row, Col, Button, Modal} from 'react-bootstrap'
+import {Container, Card, Row, Col, Button, Modal} from 'react-bootstrap'
 import './Houses.css';
 
 export default function House() {
