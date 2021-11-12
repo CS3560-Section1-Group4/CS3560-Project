@@ -71,7 +71,8 @@ import React from "react";
 import {BrowserRouter as Router,Route, Switch} from "react-router-dom";
 import Login from './containers/Login';
 import SignIn from './containers/SignIn';
-
+import Houses from './containers/Houses';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
     return (
@@ -83,6 +84,9 @@ const App = () => {
             </Route>  
             <Route path = "/signin">
               <SignIn />
+            </Route>
+            <Route path = "/houses">
+              <Houses />
             </Route>
           </Switch>
       </div>
