@@ -8,6 +8,7 @@ import Axios from 'axios';
 
 const photoPlaceholder = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
+//Card Component
 const Card = (props) => {
     const { 
         title, 
@@ -16,7 +17,8 @@ const Card = (props) => {
     } = props;
 
     return (
-        <div className="card">
+        <button className="card">
+        <div>
             <div className="header">
                 <ReactRoundedImage
                 image={imageURL}
@@ -28,6 +30,7 @@ const Card = (props) => {
             </div>
             <div>{body}</div>
         </div>
+        </button>
     );
 }
 
@@ -73,7 +76,7 @@ export default function Housemates() {
         //     </Button>
         //     </Card2.Body>
         // </Card2>
-        <Card title="urmmom" body="The brown fox died on ur mom face."/>
+        <Card onClick={console.log("some function")} title="Housemate"/>
     ))}
     </Row>
     </div>
