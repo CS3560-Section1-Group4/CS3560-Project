@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Axios from 'axios';
+import {BrowserRouter as Router,Route, Switch, Link} from "react-router-dom";
+import Navbar from 'react-bootstrap/Navbar';
 
 
-import "./Login.css";
+import "./SignIn.css";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -28,7 +30,14 @@ export default function SignIn() {
   }
 
   return (
-    <div className="SignIn">
+    <div className = "SignIn">
+
+        <Navbar bg="dark" variant="dark" sticky="top">
+            <Navbar.Brand>
+                Room.me
+            </Navbar.Brand>
+        </Navbar>
+        
       <Form onSubmit={handleSubmit}>
         <Form.Group size="lg" controlId="email">
           <Form.Label>Email</Form.Label>
@@ -48,8 +57,11 @@ export default function SignIn() {
           />
         </Form.Group>
         <Button block size="lg" type="submit" disabled={!validateForm()}>
-          SignIn
+          Sign In
         </Button>
+        <div> </div>
+        Already have an account? 
+        <Link to = "/login">Click here</Link>
       </Form>
     </div>
   );

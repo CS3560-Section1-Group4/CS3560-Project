@@ -5,6 +5,7 @@ import Text from "react"
 import Axios from 'axios';
 import "./Login.css";
 import {BrowserRouter as Router,Route, Switch, Link} from "react-router-dom";
+import Navbar from 'react-bootstrap/Navbar';
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -29,6 +30,11 @@ export default function Login() {
 
   return (
     <div className="Login">
+      <Navbar bg="dark" variant="dark" sticky="top">
+            <Navbar.Brand>
+                Room.me
+            </Navbar.Brand>
+      </Navbar>
       <Form onSubmit={handleSubmit}>
         <Form.Group size="lg" controlId="email">
           <Form.Label>Email</Form.Label>
@@ -51,7 +57,8 @@ export default function Login() {
           Login
         </Button>
         <div> </div>
-        <Link to = "/signin">Don't have an account? Click here</Link>
+        Don't have an account? 
+        <Link to = "/signin">Click here</Link>
       </Form>
     </div>
   );

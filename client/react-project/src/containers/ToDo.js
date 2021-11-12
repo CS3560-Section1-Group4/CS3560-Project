@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import FormLabel from "react-bootstrap/FormLabel";
 import Axios from 'axios';
+import Navbar from 'react-bootstrap/Navbar';
+import {Cotainer, Row, Col, Button, Modal} from 'react-bootstrap'
+import "./ToDo.css";
 
 export default function ToDo(){
     
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const [newTask, setNewTask] = useState("");
     
     function checkAccount(){
         // get account 
@@ -13,63 +19,75 @@ export default function ToDo(){
 
     }
 
-    function house(){
-        var house = "hahaha"
-        return house
-    }
-    var he = house()
+    
+    var numberOfTenants = 5
 
-    function checkHousemates(){
-        var housemates = ["lan", "vincent", "abdul"]
-        return housemates
-    }
-
-    var house2 = checkHousemates()
-
-    function checkTasks(){
-        for (let i = 0; i < house2.length; i ++){
-            
-        }
-
-    }
-
-    const getTasks = () => {
-        Axios.get("http:://localhost:3001/roommates").then((response) => {
-          checkHousemates(response.data);
-        });
-    }
-
-    var text = "Hello"
-    var task = "Clean the dishes"
-
-    const array = ["lan", "vincent"]
-    array.push("vincent")
-    const data = {
+    const housemateTasks = ["Chore", "Chore"]
+    var task = "Chore"
+    housemateTasks.push(task)
+    
+    /*const data = {
         "1549969678424": "26.092242876805436"
     }
     const name = Object.keys(data)
-    const tasks = Object.values(data)
+    const tasks = Object.values(data)*/
     
     return (
-        <div> 
-            <label> ToDo List </label>
-            <div>
+        <div className = "ToDo"> 
+            <Navbar bg="dark" variant="dark" sticky="top">
+                <Navbar.Brand>
+                    Room.me
+                </Navbar.Brand>
+            </Navbar>
+            <label > 
+                <span style={{'fontSize': '80px'}}>To-Do List</span> 
+            </label>
+            <div> </div>
+            <label> <span style={{'fontSize': '40px'}}>House Name</span>  </label>
+            {Array.from({ length: numberOfTenants }).map((_, idx) => (
+                <Form>        
+                    <div></div>
+                    <div></div>
+                    <label> <span style={{'fontSize': '40px'}}>Housemate</span>  </label>
+                        {housemateTasks.map(tasks => (                
+                            <Form.Check size="lg" style={{'fontSize': '30px'}} type="checkbox" label={tasks} />))}
+                </Form> ))}
+            
+            <div className="addButton">
+                <Button onClick={handleShow} style={{width: '50px', height: '50px', borderRadius: '50px', backgroundColor: '#97D8C4', borderColor: '#97D8C4'}}>
+                    +
+                </Button>
             </div>
-            {array.map(arr => (
-               <Form.Check type="checkbox" label={arr} />
-            ))}
-            <FormLabel>{array[0]}</FormLabel>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Add a Chore</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                <Form.Control                
+                    value={newTask}
+                    onChange={(e) => setNewTask(e.target.value)}
+                />
+                </Modal.Body>
+                <Modal.Body>
+                    Assign to
+                    {Array.from({ length: numberOfTenants }).map((_, idx) => (
+                        <Form.Check type="checkbox" label = {"HouseMate"} /> 
+                    ))}
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+                <Button variant="primary" onClick={handleClose}>
+                    Submit
+                </Button>
+                </Modal.Footer>
+            </Modal>
+          
         </div>
+        
 
 
-        /*{getTasks.map((val,key) => {
-            return( 
-            <div className="roommate">
-            <h3>Name: {val.name}</h3>
-            <h3>Age: {val.age}</h3>
-        </div>
-        );
-        })}*/
 
 
     );
