@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Navbar from 'react-bootstrap/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Cotainer, Row, Col, Button, Modal} from 'react-bootstrap'
+import {Cotainer, Row, Col, Button, Modal, Nav} from 'react-bootstrap'
 import './Housemates.css';
 import ReactRoundedImage from "react-rounded-image";
 import Axios from 'axios';
 import Form from "react-bootstrap/Form";
+import { useHistory } from 'react-router-dom';
 
 const photoPlaceholder = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
@@ -36,6 +37,7 @@ const Card = (props) => {
 }
 
 export default function Housemates() {
+    let history = useHistory();
     const [show, setShow] = useState(false);
 
     const handleShow = () => setShow(true);
@@ -58,6 +60,19 @@ export default function Housemates() {
         });
         setShow(false);
     }
+
+    function goTodo(){
+        history.push("/todo");
+    }
+
+    function signOut(){
+        //Sign out code for SQL
+        history.push("/login");
+    }
+
+    function goHousemates(){
+        history.push("/housemates");
+    }
     
     return (
     <div>
@@ -65,7 +80,13 @@ export default function Housemates() {
     <Navbar bg="dark" variant="dark" sticky="top">
         <Navbar.Brand>
             Room.me
+            
         </Navbar.Brand>
+        <Nav className="me-auto">
+            <Nav.Link onClick={goTodo}>To-Do List</Nav.Link>
+            <Nav.Link onClick={goHousemates}>Housemates</Nav.Link>
+            <Nav.Link onClick={signOut}>Sign-Out</Nav.Link>
+        </Nav>
     </Navbar>
 
     {/* House Header */}
@@ -75,25 +96,7 @@ export default function Housemates() {
     
     <div className='center'>
     <Row className="g-4">
-    {Array.from({ length: 15 }).map((_, idx) => (
-        // <Card2 style={{width: '150rem', height: '10rem'}}>
-        //     <ReactRoundedImage
-        //     image={"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
-        //     roundedColor='white'
-        //     imageHeight='100'
-        //     imageWidth='100'
-        //     />
-        //     <Card2.Body style={{right:'100px'}}>
-        //     <Card2.Title>Card title</Card2.Title>
-        //     <Card2.Text>
-        //         This is a longer card with supporting text below as a natural
-        //         lead-in to additional content. This content is a little bit longer.
-        //     </Card2.Text>
-        //     <Button>
-        //         Button
-        //     </Button>
-        //     </Card2.Body>
-        // </Card2>
+    {Array.from({ length: 3 }).map((_, idx) => (
         <Card onClick={console.log("some function")} title="Housemate"/>
     ))}
     </Row>

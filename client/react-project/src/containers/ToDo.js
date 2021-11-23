@@ -3,11 +3,14 @@ import Form from "react-bootstrap/Form";
 import FormLabel from "react-bootstrap/FormLabel";
 import Axios from 'axios';
 import Navbar from 'react-bootstrap/Navbar';
-import {Cotainer, Row, Col, Button, Modal} from 'react-bootstrap'
+import {Cotainer, Row, Col, Button, Modal, Nav} from 'react-bootstrap'
 import "./ToDo.css";
+import { useHistory } from 'react-router-dom';
 
 export default function ToDo(){
     
+    let history = useHistory();
+
     // create the variable and the set function
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -21,6 +24,20 @@ export default function ToDo(){
         setChores(response.data);
     });
 
+    }
+
+    
+    function goTodo(){
+        history.push("/todo");
+    }
+
+    function signOut(){
+        //Sign out code for SQL
+        history.push("/login");
+    }
+
+    function goHousemates(){
+        history.push("/housemates");
     }
     
     // substitute variable for format
@@ -36,6 +53,11 @@ export default function ToDo(){
                 <Navbar.Brand>
                     Room.me
                 </Navbar.Brand>
+                <Nav className="me-auto">
+                    <Nav.Link onClick={goTodo}>To-Do List</Nav.Link>
+                    <Nav.Link onClick={goHousemates}>Housemates</Nav.Link>
+                    <Nav.Link onClick={signOut}>Sign-Out</Nav.Link>
+                </Nav>
             </Navbar>
             {/* to-do label */}
             <label > 
