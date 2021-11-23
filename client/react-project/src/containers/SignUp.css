@@ -5,4 +5,11 @@
       margin: 0 auto;
       max-width: 320px;
     }
+
+    .centered {
+      height: 10vh; /* Magic here */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }

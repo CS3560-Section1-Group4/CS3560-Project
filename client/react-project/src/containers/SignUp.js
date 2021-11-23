@@ -41,7 +41,11 @@ export default function SignUp() {
                 Room.me
             </Navbar.Brand>
         </Navbar>
-        
+        <div className="centered">
+        <h1>
+          Sign Up
+        </h1>
+      </div>
        {/* the form */} 
       <Form onSubmit={handleSubmit}>
       {/* the name input */}

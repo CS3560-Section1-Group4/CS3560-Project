@@ -39,6 +39,11 @@ export default function Login() {
                 Room.me
             </Navbar.Brand>
       </Navbar>
+      <div className="centered">
+        <h1 className="title">
+          Login
+        </h1>
+      </div>
       {/* the form */}
       <Form onSubmit={handleSubmit}>
         {/* the email input */}
