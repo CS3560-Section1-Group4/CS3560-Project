@@ -22,17 +22,15 @@ export default function SignUp() {
   // makes sure all the fields have input
   function handleSubmit(event) {
     event.preventDefault();
-  }
 
-  // post request to MySQL database 
-  const createAccount = () => {
-    Axios.post('http://localhost:3001/createaccount', {
-      email:email, 
-      password:password,
-      name: name
-    }).then(()=>{
-      console.log("success")
-    });
+    // post request to MySQL database 
+      Axios.post('http://localhost:3001/createAccount', {
+        email:email, 
+        password:password,
+        name: name
+      }).then(()=>{
+        console.log("success")
+      });
   }
 
   return (

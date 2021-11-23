@@ -5,6 +5,7 @@ import {Cotainer, Row, Col, Button, Modal} from 'react-bootstrap'
 import './Housemates.css';
 import ReactRoundedImage from "react-rounded-image";
 import Axios from 'axios';
+import Form from "react-bootstrap/Form";
 
 const photoPlaceholder = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
@@ -34,13 +35,30 @@ const Card = (props) => {
     );
 }
 
-
-
 export default function Housemates() {
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);
+    const [newHousemate, setNewHousemate] = useState("");
+    const [housemates, setHousemates] = useState([]);
+
+    function getHousemates(){
+        Axios.get("http:://localhost:3001/getChores").then((response) => {
+        setHousemates(response.data);
+    });
+
+    }
+
+    function checkValid(){
+        Axios.post('http://localhost:3001/checkLogin', {
+        housemates:newHousemate, 
+        }).then(()=>{
+         console.log("success")
+        });
+        setShow(false);
+    }
+    
     return (
     <div>
     {/* NavBar */}
@@ -92,13 +110,16 @@ export default function Housemates() {
           <Modal.Title>Add a Housemate</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            Add input here
-        </Modal.Body>
+                <Form.Control                
+                    value={newHousemate}
+                    onChange={(e) => setNewHousemate(e.target.value)}
+                />
+                </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={checkValid}>
             Add
           </Button>
         </Modal.Footer>

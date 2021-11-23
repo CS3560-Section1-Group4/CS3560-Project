@@ -11,8 +11,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const App = () => {
     return (
     <Router>
-      <div className = "App">
+      <div className = "App">       
           <Switch>
+            {/* <Route path = "/">
+              <Login />
+            </Route> */}
             <Route path = "/login">
               <Login />
             </Route>   
