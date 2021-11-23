@@ -42,8 +42,6 @@ export default function ToDo(){
                 <span style={{'fontSize': '80px'}}>To-Do List</span> 
             </label>
             <div> </div>
-            {/* the house name  */}
-            <label> <span style={{'fontSize': '40px'}}>House Name</span>  </label>
             {/* structure of fake data of the housemate with their chores */}
             {Array.from({ length: numberOfTenants }).map((_, idx) => (
                 <Form>        
