@@ -38,6 +38,7 @@ app.post('/createHouse' , (req, res) => {
     var accountID = [];
     var houseID = [];
 
+    //Please don't touch this code, it works and I have no idea why
     db.query("SELECT accountID FROM account WHERE name=(?) ",[name], 
     (err,result) => {
         if (err) {
@@ -54,7 +55,7 @@ app.post('/createHouse' , (req, res) => {
             if (err){
                 console.log(err);
             } else{
-                console.log("Holy shit we are in setValue")
+                console.log("setValue")
             }
         })
 
@@ -156,6 +157,18 @@ app.get('/getHousemates', (req,res) => {
         }
     });
 });
+
+//retruns the names of all housemates
+app.get('/getHousematesNames', (req,res) => {
+    db.query("SELECT name FROM account", (err,result) => {
+        if (err) {
+            console.log(err);
+        } else{
+            res.send(result);
+        }
+    });
+});
+
 
 //returns all houses from the houses table in the database
 app.get('/getHouses', (req,res) => {
