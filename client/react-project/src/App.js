@@ -1,6 +1,6 @@
 import './App.css';
 import React from "react";
-import {BrowserRouter as Router,Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router,Route, Switch, Redirect} from "react-router-dom";
 import Login from './containers/Login';
 import SignUp from './containers/SignUp';
 import ToDo from './containers/ToDo'
@@ -13,9 +13,9 @@ const App = () => {
     <Router>
       <div className = "App">       
           <Switch>
-            {/* <Route path = "/">
-              <Login />
-            </Route> */}
+            <Route exact path = "/">
+              <Redirect to="/login"/>
+            </Route>
             <Route path = "/login">
               <Login />
             </Route>   
