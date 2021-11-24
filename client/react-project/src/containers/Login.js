@@ -5,11 +5,15 @@ import Axios from 'axios';
 import "./Login.css";
 import {BrowserRouter as Router,Route, Switch, Link} from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
+import { useHistory } from "react-router-dom";
 
 export default function Login() {
   // create the variable and the set function
+  let history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  var accountID = []
   
   // validate the length
   function validateForm() {
@@ -26,11 +30,19 @@ export default function Login() {
     Axios.post('http://localhost:3001/checkLogin', {
       email:email, 
       password:password,
-    }).then(()=>{
-      console.log("success")
+    }).then((response)=>{
+      //accountID = response.data
+      setValue(response.data)
+      //console.log(accountID)
     });
   }
+  function setValue(value){
+    
+    accountID = value;
+    console.log(accountID);
+    history.push({pathname: '/housemates',state : [{accountID: accountID}]});
 
+}
   return (
     <div className="Login">
       {/* the navigation bar */}

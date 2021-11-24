@@ -16,10 +16,10 @@ const db = mysql.createConnection({
 //Adds account to database
 app.post('/createAccount' , (req, res) => {
     const name = req.body.name;
-    const emailAddress = req.body.emailAddress;
+    const email = req.body.email;
     const password = req.body.password;
 
-    db.query('INSERT INTO account (name,emailAddress,password) VALUES (?,?,?)', [name,emailAddress,password], 
+    db.query('INSERT INTO account (name,emailAddress,password) VALUES (?,?,?)', [name,email,password], 
         (err,result) => {
             if (err){
                 console.log(err);
@@ -90,33 +90,20 @@ app.post('/createChore' , (req, res) => {
     const assignedTo = req.body.assignedTo;
     const completionStatus = req.body.completionStatus;
     const accountID = req.body.accountID;
-    var houseID = [];
-    db.query("SELECT houseID FROM house WHERE accountID=(?) ",[accountID], 
+    db.query('INSERT INTO chore (title,assignedTo,completionStatus,accountID) VALUES (?,?,?,?)', [title,assignedTo,completionStatus,accountID], 
     (err,result) => {
-        if (err) {
+        if (err){
             console.log(err);
         } else{
-            setValue(result);
+            res.send("Chores Inserted");
         }
-    });
-    function setValue(value){
-        houseID = value[0].houseID;
-        console.log(houseID);
-        db.query('INSERT INTO chore (houseID,title,assignedTo,completionStatus,accountID) VALUES (?,?,?,?,?)', [houseID,title,assignedTo,completionStatus,accountID], 
-        (err,result) => {
-            if (err){
-                console.log(err);
-            } else{
-                res.send("Values Inserted");
-            }
-        })
-    }
+    })
     
 })
 
 //checks if emailAddress and password of current user exists in the database
 app.post('/checkLogin', (req,res) => {
-    const emailAddress = req.body.emailAddress;
+    const emailAddress = req.body.email;
     const password = req.body.password;
     var accountID = [];
     db.query("SELECT accountID FROM account WHERE (emailAddress,password) = (?,?)",[emailAddress,password], 
@@ -149,16 +136,18 @@ app.get('/getChores', (req,res) => {
 
 //returns all housemates from the housemates table in the database
 app.get('/getHousemates', (req,res) => {
-    db.query("SELECT * FROM housemates", (err,result) => {
+    db.query("SELECT name,accountID from account", (err,result) => {
         if (err) {
             console.log(err);
         } else{
+            console.log(result);
             res.send(result);
         }
     });
+
 });
 
-//retruns the names of all housemates
+//returns the names of all housemates
 app.get('/getHousematesNames', (req,res) => {
     db.query("SELECT name FROM account", (err,result) => {
         if (err) {
@@ -173,6 +162,19 @@ app.get('/getHousematesNames', (req,res) => {
 //returns all houses from the houses table in the database
 app.get('/getHouses', (req,res) => {
     db.query("SELECT * FROM house", (err,result) => {
+        if (err) {
+            console.log(err);
+        } else{
+            res.send(result);
+        }
+    });
+});
+
+//deletes a chore
+app.post('/deleteChore', (req,res) => {
+    const choreID = req.body.choreID;
+    db.query("DELETE FROM chore WHERE choreID = ?",[choreID], 
+    (err,result) => {
         if (err) {
             console.log(err);
         } else{

@@ -17,13 +17,44 @@ export default function ToDo(){
     const handleShow = () => setShow(true);
     const [newTask, setNewTask] = useState("");
     const [choreList, setChores] = useState([]);
+    const assignedTo = 'danielle'
+    const accountID = '103'
+    
+    const [housemates, setHousemates] = useState([]);
+    function getHousemates(){
+        Axios.get('http://localhost:3001/getHousemates').then((response) => {
+            setHousemates(response.data);
+        });
+    }
   
     // get request to MySQL database 
     function getChores(){
-        Axios.get("http:://localhost:3001/getChores").then((response) => {
+        Axios.get("http://localhost:3001/getChores").then((response) => {
         setChores(response.data);
     });
 
+    }
+
+    const handleChange = (e) => {
+       let isChecked = e.target.checked;
+       Axios.post('http://localhost:3001/deleteChore', {
+        choreID:2
+      }).then(()=>{
+        console.log("success")
+      });
+        // do whatever you want with isChecked value
+    }
+
+    function createTask(){
+        Axios.post('http://localhost:3001/createChore', {
+          title: newTask,
+          assignedTo: assignedTo,
+          completionStatus: 0,
+          accountID: accountID,
+        }).then(()=>{
+            console.log("success")
+        });
+        setShow(false);
     }
 
     
@@ -63,16 +94,30 @@ export default function ToDo(){
             <label > 
                 <span style={{'fontSize': '80px'}}>To-Do List</span> 
             </label>
-            <div> </div>
+            <div> </div>``
             {/* structure of fake data of the housemate with their chores */}
-            {Array.from({ length: numberOfTenants }).map((_, idx) => (
+            <button onClick={getChores}> Show Chores</button>
+                        {choreList.map((val,key) => {
+                        return( 
+                            <div className="roommate">
+                            <Form>        
+                            <div></div>
+                            <div></div>
+                            <label> <span style={{'fontSize': '40px'}}>{val.assignedTo}</span>  </label>            
+                                <Form.Check size="lg" style={{'fontSize': '30px'}} type="checkbox" label={val.title} onChange={e => handleChange(e)}/>
+                            </Form>
+                            {/* <h3>Task: {val.task}</h3> */}
+                        </div>
+                        );
+                    })}  
+            {/* {Array.from({ length: numberOfTenants }).map((_, idx) => (
                 <Form>        
                     <div></div>
                     <div></div>
                     <label> <span style={{'fontSize': '40px'}}>Housemate</span>  </label>
                         {housemateTasks.map(tasks => (                
                             <Form.Check size="lg" style={{'fontSize': '30px'}} type="checkbox" label={tasks} />))}
-                </Form> ))}
+                </Form> ))} */}
             
             {/* Add Chore Button */}
             <div className="addButton">
@@ -94,32 +139,33 @@ export default function ToDo(){
                 </Modal.Body>
                 {/* Assign to People */}
                 <Modal.Body>
-                    Assign to
-                    {Array.from({ length: numberOfTenants }).map((_, idx) => (
+                    <button onClick={getHousemates}> Assign to</button>
+                    {housemates.map((val,key) => {
+                    return( 
+                        <div className="roommate">
+                        <Form.Check type="checkbox" label = {val.name}/> 
+                        {/* <h3>HouseMate: {val.name}</h3> */}
+                        {/* <h3><Form.Check type="checkbox" label = {val.task} /> </h3>
+                        <h3>Task: {val.task}</h3> */}
+                    </div>
+                    );
+                })} 
+                    
+                    {/* {Array.from({ length: numberOfTenants }).map((_, idx) => (
                         <Form.Check type="checkbox" label = {"HouseMate"} /> 
-                    ))}
+                    ))} */}
                 </Modal.Body>
                 <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={handleClose}>
+                <Button variant="primary" onClick={createTask}>
                     Submit
                 </Button>
                 </Modal.Footer>
             </Modal>
 
-            {/* How to set the get post json array to variables */}
-            <button onClick={getChores}> Show Roommates</button>
-                {choreList.map((val,key) => {
-                return( 
-                    <div className="roommate">
-                    <h3>HouseMate: {val.housemate}</h3>
-                    <h3><Form.Check type="checkbox" label = {val.task} /> </h3>
-                    <h3>Task: {val.task}</h3>
-                </div>
-                );
-            })}          
+            {/* How to set the get post json array to variables */}        
         </div>
 
     );

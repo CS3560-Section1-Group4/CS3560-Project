@@ -6,7 +6,7 @@ import './Housemates.css';
 import ReactRoundedImage from "react-rounded-image";
 import Axios from 'axios';
 import Form from "react-bootstrap/Form";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 const photoPlaceholder = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
@@ -39,18 +39,20 @@ const Card = (props) => {
 export default function Housemates() {
     let history = useHistory();
     const [show, setShow] = useState(false);
-
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
     const [newHousemate, setNewHousemate] = useState("");
     const [housemates, setHousemates] = useState([]);
-
+    //const accountID = this.props.accountID;
+    //console.log("yeet"+accountID);
+    
     function getHousemates(){
-        Axios.get("http:://localhost:3001/getChores").then((response) => {
-        setHousemates(response.data);
-    });
-
+        Axios.get('http://localhost:3001/getHousemates').then((response) => {
+            setHousemates(response.data);
+        });
     }
+    
+
 
     function checkValid(){
         Axios.post('http://localhost:3001/checkLogin', {
@@ -73,7 +75,6 @@ export default function Housemates() {
     function goHousemates(){
         history.push("/housemates");
     }
-    
     return (
     <div>
     {/* NavBar */}
@@ -96,19 +97,33 @@ export default function Housemates() {
     
     <div className='center'>
     <Row className="g-4">
-    {Array.from({ length: 3 }).map((_, idx) => (
-        <Card onClick={console.log("some function")} title="Housemate"/>
-    ))}
+    
+    {/* {Array.from({ length: 3 }).map((_, idx) => ( */}
+        <button onClick={getHousemates}> Show Roommates</button>
+                {housemates.map((val,key) => {
+                return( 
+                    <div className="roommate">
+                    <Card onClick={getHousemates} title={val.name}/>
+                    {/* <h3>HouseMate: {val.name}</h3> */}
+                    {/* <h3><Form.Check type="checkbox" label = {val.task} /> </h3>
+                    <h3>Task: {val.task}</h3> */}
+                </div>
+                );
+            })} 
+        
+    {/* ))
+    } */}
     </Row>
+    
     </div>
 
     {/* Add Button */}
-    <div className="addButton">
+    {/* <div className="addButton">
         <Button onClick={handleShow} style={{width: '50px', height: '50px', borderRadius: '50px', backgroundColor: '#97D8C4', borderColor: '#97D8C4'}}>
             +
         </Button>
-    </div>
-    <Modal show={show} onHide={handleClose}>
+    </div> */}
+    {/* <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add a Housemate</Modal.Title>
         </Modal.Header>
@@ -126,7 +141,7 @@ export default function Housemates() {
             Add
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
     </div>
     );
 }

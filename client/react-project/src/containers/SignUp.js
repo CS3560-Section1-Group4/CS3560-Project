@@ -4,12 +4,14 @@ import Button from "react-bootstrap/Button";
 import Axios from 'axios';
 import {BrowserRouter as Router,Route, Switch, Link} from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
+import { useHistory } from "react-router-dom";
 
 
 import "./SignUp.css";
 
 export default function SignUp() {
   // create the variable and the set function
+  let history = useHistory()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -25,12 +27,16 @@ export default function SignUp() {
 
     // post request to MySQL database 
       Axios.post('http://localhost:3001/createAccount', {
+        name: name,  
         email:email, 
-        password:password,
-        name: name
+        password:password
       }).then(()=>{
         console.log("success")
       });
+
+      history.push('/housemates')
+
+
   }
 
   return (
